@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,24 +11,24 @@
         android:id="@+id/appTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:fontFamily="serif"
+        android:text="Plan Your Own Party"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Plan Your Own Party" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/appSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:text="CSIS 4495"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appTitle"
-        tools:text="CSIS 4495" />
+        app:layout_constraintTop_toBottomOf="@+id/appTitle" />
 
     <EditText
         android:id="@+id/inputEmailID"
@@ -38,10 +38,10 @@
         android:autofillHints=""
         android:ems="10"
         android:inputType="textEmailAddress"
+        android:text="Email Address"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appSubtitle"
-        tools:text="Email Address" />
+        app:layout_constraintTop_toBottomOf="@+id/appSubtitle" />
 
     <EditText
         android:id="@+id/inputPassword"
@@ -52,10 +52,10 @@
         android:ems="10"
         android:inputType="textPassword"
         android:minHeight="48dp"
+        android:text="Password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputEmailID"
-        tools:text="Password" />
+        app:layout_constraintTop_toBottomOf="@+id/inputEmailID" />
 
     <Button
         android:id="@+id/loginButton"
@@ -89,4 +89,4 @@
         app:layout_constraintStart_toEndOf="@+id/googleSignInImageView"
         app:layout_constraintTop_toBottomOf="@+id/loginButton"
         tools:ignore="TextContrastCheck" />
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
