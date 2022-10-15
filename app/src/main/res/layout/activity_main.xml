@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:contentDescription="Google"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/appTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="serif"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Plan Your Own Party" />
+
+    <TextView
+        android:id="@+id/appSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appTitle"
+        tools:text="CSIS 4495" />
+
+    <EditText
+        android:id="@+id/inputEmailID"
+        android:layout_width="326dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="100dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appSubtitle"
+        tools:text="Email Address" />
+
+    <EditText
+        android:id="@+id/inputPassword"
+        android:layout_width="326dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="30dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputEmailID"
+        tools:text="Password" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="326dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="75dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputPassword"
+        tools:text="Login" />
+
+    <ImageView
+        android:id="@+id/googleSignInImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/action_sign_in"
+        android:src="@drawable/common_google_signin_btn_icon_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"/>
+
+    <Button
+        android:id="@+id/googleSignUpButton"
+        android:layout_width="275dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:background="#03A9F4"
+        android:text="Sign up with Google"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toEndOf="@+id/googleSignInImageView"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
+        tools:ignore="TextContrastCheck" />
+</android.support.constraint.ConstraintLayout>
