@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "643501331679",
+    "project_id": "pyop-c1c17",
+    "storage_bucket": "pyop-c1c17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643501331679:android:bf7eb336b3c8dabaf0056a",
+        "android_client_info": {
+          "package_name": "com.example.pyop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643501331679-quibl7v8ku6md6l01vd06fttuftu5qro.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pyop",
+            "certificate_hash": "88c048664dbc497f3504a04d5f82314d445930d6"
+          }
+        },
+        {
+          "client_id": "643501331679-ne3pqjikpt771vr0uulmmhq0l0pvp3jc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCd3i0j6_OKG5P4rA-uKN7YIYLDXQVE3Yw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643501331679-ne3pqjikpt771vr0uulmmhq0l0pvp3jc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
