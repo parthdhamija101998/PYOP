@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 task.getResult(ApiException.class);
                 HomeActivity();
             } catch (ApiException e) {
-                Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Error" + e.toString(),Toast.LENGTH_SHORT).show();
             }
         }
     }

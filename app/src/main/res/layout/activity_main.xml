@@ -37,8 +37,8 @@
         android:layout_marginTop="100dp"
         android:autofillHints=""
         android:ems="10"
+        android:hint="Email Address"
         android:inputType="textEmailAddress"
-        android:text="Email Address"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appSubtitle" />
@@ -50,9 +50,9 @@
         android:layout_marginTop="30dp"
         android:autofillHints=""
         android:ems="10"
+        android:hint="Password"
         android:inputType="textPassword"
         android:minHeight="48dp"
-        android:text="Password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputEmailID" />
@@ -62,25 +62,25 @@
         android:layout_width="326dp"
         android:layout_height="48dp"
         android:layout_marginTop="75dp"
+        android:text="Login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputPassword"
-        tools:text="Login" />
+        app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
 
     <ImageView
         android:id="@+id/googleSignInImageView"
-        android:layout_width="wrap_content"
+        android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="32dp"
         android:contentDescription="@string/action_sign_in"
         android:src="@drawable/common_google_signin_btn_icon_light"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton"/>
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
     <Button
         android:id="@+id/googleSignUpButton"
-        android:layout_width="275dp"
+        android:layout_width="278dp"
         android:layout_height="48dp"
         android:layout_marginTop="32dp"
         android:background="#03A9F4"
