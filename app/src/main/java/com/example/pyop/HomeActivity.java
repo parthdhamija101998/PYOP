@@ -23,6 +23,8 @@ public class HomeActivity extends AppCompatActivity {
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +39,12 @@ public class HomeActivity extends AppCompatActivity {
                 .build();
         gsc = GoogleSignIn.getClient(this,gso);
 
+
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account!=null){
             String Name = account.getDisplayName();
             String Mail = account.getEmail();
+
 
             name.setText(Name);
             email.setText(Mail);
