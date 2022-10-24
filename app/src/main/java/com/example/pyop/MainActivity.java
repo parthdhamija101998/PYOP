@@ -2,9 +2,11 @@ package com.example.pyop;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,17 +67,19 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode==100){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
+                Log.e("","This is before the API test");
                 task.getResult(ApiException.class);
+                Log.e("","");
                 HomeActivity();
             } catch (ApiException e) {
-//                Toast.makeText(this,"Error" + e.toString(),Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"Error " + e.toString(),Toast.LENGTH_LONG).show();
             }
         }
     }
 
     private void HomeActivity() {
         finish();
-        Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
         startActivity(intent);
     }
 }

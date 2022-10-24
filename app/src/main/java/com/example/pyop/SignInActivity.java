@@ -15,20 +15,23 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class HomeActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
 
     TextView name,email;
     Button logout;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
 
+    private FirebaseAuth mAuth;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_signin);
 
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
@@ -38,6 +41,8 @@ public class HomeActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         gsc = GoogleSignIn.getClient(this,gso);
+
+        mAuth = FirebaseAuth.getInstance();
 
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);

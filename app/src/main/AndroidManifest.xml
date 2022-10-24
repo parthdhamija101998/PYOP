@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PYOP">
         <activity
-            android:name=".HomeActivity"
+            android:name=".SignInActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

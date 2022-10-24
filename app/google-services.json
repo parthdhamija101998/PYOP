@@ -1,18 +1,27 @@
 {
   "project_info": {
     "project_number": "615794464945",
+    "firebase_url": "https://pyop-de09c-default-rtdb.firebaseio.com",
     "project_id": "pyop-de09c",
     "storage_bucket": "pyop-de09c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:615794464945:android:822c0edb4b6354fb48aa90",
+        "mobilesdk_app_id": "1:615794464945:android:45b2fd65f29fbd1848aa90",
         "android_client_info": {
           "package_name": "com.example.pyop"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "615794464945-mopog5kpu59lbnvparkn0v8eor78rjle.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pyop",
+            "certificate_hash": "88c048664dbc497f3504a04d5f82314d445930d6"
+          }
+        },
         {
           "client_id": "615794464945-1nqiet90sph1b619llip3ofuk9ro9p2c.apps.googleusercontent.com",
           "client_type": 3
