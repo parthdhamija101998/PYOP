@@ -1,5 +1,7 @@
 package com.example.pyop;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,35 +65,47 @@ public class SignInActivity extends AppCompatActivity {
             String Email = account.getEmail();
             String uID = account.getId();
 
-
-
-            // Create a new user with a first and last name
-            Map<String, Object> user = new HashMap<>();
-            user.put("firstName", Name);
-            user.put("lastName", LName);
-            user.put("emailId", Email);
-            user.put("userID",uID);
-
-
-            // Add a new document with a generated ID
             db.collection("users")
-                    .add(user)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    .whereEqualTo("userID",uID)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.w("TAG", "Error adding document", e);
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                if (task.getResult().isEmpty()) {
+//                                     Create a new user with a first and last name
+                                    Map<String, Object> user = new HashMap<>();
+                                    user.put("firstName", Name);
+                                    user.put("lastName", LName);
+                                    user.put("emailId", Email);
+                                    user.put("userID", uID);
+
+                                    // Add a new document with a generated ID
+                                    db.collection("users")
+                                            .add(user)
+                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                @Override
+                                                public void onSuccess(DocumentReference documentReference) {
+                                                    Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w("TAG", "Error adding document", e);
+                                                }
+                                            });
+                                }
+
+                            } else {
+                                Log.w(TAG, "Error getting document", task.getException());
+                            }
                         }
                     });
 
-
             name.setText(Name);
             email.setText(Mail);
+
         }
 
         logout.setOnClickListener(new View.OnClickListener() {
