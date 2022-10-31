@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FEFEFE"
-    android:contentDescription="Google"
     tools:context=".MainActivity">
 
     <TextView
@@ -37,59 +36,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appTitle" />
 
-    <EditText
-        android:id="@+id/inputEmailID"
-        android:layout_width="326dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="60dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="Email Address"
-        android:inputType="textEmailAddress"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appSubtitle" />
-
-    <EditText
-        android:id="@+id/inputPassword"
-        android:layout_width="326dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputEmailID" />
-
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="326dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="60dp"
-        android:text="Sign In"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
-
     <Button
         android:id="@+id/googleSignInButton"
         android:layout_width="326dp"
         android:layout_height="48dp"
-        android:layout_marginTop="30dp"
         android:background="#03A9F4"
         android:drawableLeft="@drawable/common_google_signin_btn_icon_light_normal"
         android:drawablePadding="20dp"
         android:padding="16dp"
         android:text="Sign in with Google"
         android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>
