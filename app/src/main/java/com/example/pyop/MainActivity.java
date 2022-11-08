@@ -56,19 +56,18 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode==100){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                Log.e("","This is before the API test");
                 task.getResult(ApiException.class);
                 Log.e("","");
-                HomeActivity();
+                CalendarActivity();
             } catch (ApiException e) {
                 Toast.makeText(this,"Error " + e.toString(),Toast.LENGTH_LONG).show();
             }
         }
     }
 
-    private void HomeActivity() {
+    private void CalendarActivity() {
         finish();
-        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+        Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
         startActivity(intent);
     }
 }

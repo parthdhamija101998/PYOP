@@ -28,10 +28,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SignInActivity extends AppCompatActivity {
+public class CalendarActivity extends AppCompatActivity {
 
-    TextView name,email;
-    Button logout;
+    TextView name;
+    Button logout,notes,chat,split;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
 
@@ -43,11 +43,13 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signin);
+        setContentView(R.layout.activity_calendar);
 
         name = findViewById(R.id.name);
-        email = findViewById(R.id.email);
         logout = findViewById(R.id.btnLogout);
+        notes = findViewById(R.id.btnKeep);
+        chat = findViewById(R.id.btnChat);
+        split = findViewById(R.id.btnSplitwise);
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -59,8 +61,7 @@ public class SignInActivity extends AppCompatActivity {
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account!=null){
-            String Name = account.getDisplayName();
-            String Mail = account.getEmail();
+            String Name = account.getDisplayName().split(" ")[0];
             String LName = account.getFamilyName();
             String Email = account.getEmail();
             String uID = account.getId();
@@ -102,9 +103,9 @@ public class SignInActivity extends AppCompatActivity {
                             }
                         }
                     });
+            Log.e("Name","Displaying the name"+Name);
+            name.setText("Hello " + Name);
 
-            name.setText(Name);
-            email.setText(Mail);
 
         }
 
@@ -115,6 +116,29 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(new Intent(getApplicationContext(),ChatActivity.class));
+            }
+        });
+
+        notes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(new Intent(getApplicationContext(),NotesActivity.class));
+            }
+        });
+
+        split.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(new Intent(getApplicationContext(),SplitActivity.class));
+            }
+        });
 
     }
 
