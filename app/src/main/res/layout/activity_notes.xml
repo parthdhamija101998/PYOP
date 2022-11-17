@@ -25,20 +25,17 @@
         android:textSize="34sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addNoteButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="108dp"
-        android:background="#00BCD4"
-        android:foregroundGravity="center|center_horizontal"
-        android:gravity="center"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:text="LOG OUT"
-        android:textColor="#FFFFFF"
-        tools:ignore="TextContrastCheck" />
+        android:layout_above="@+id/btnSplitwise"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="29dp"
+        android:backgroundTint="@color/white"
+        android:paddingBottom="34dp"
+        android:src="@drawable/ic_baseline_add_24" />
 
     <Button
         android:id="@+id/btnHome"
