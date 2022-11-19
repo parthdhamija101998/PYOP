@@ -12,6 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PYOP">
         <activity
+            android:name=".CreateAccountActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".NoteDetailsActivity"
             android:exported="false">
             <meta-data

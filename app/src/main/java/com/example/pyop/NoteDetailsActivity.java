@@ -1,21 +1,42 @@
 package com.example.pyop;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class NoteDetailsActivity extends AppCompatActivity {
 
-    EditText titleEditText,contentEditText;
+    EditText titleEditText, contentEditText;
     ImageButton saveNoteButton;
+    TextView page_title;
+
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
+
+    String title,content,docId;
+    boolean isEditMode = false;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,21 +45,35 @@ public class NoteDetailsActivity extends AppCompatActivity {
 
         titleEditText = findViewById(R.id.notes_title_text);
         contentEditText = findViewById(R.id.notes_content_text);
-
         saveNoteButton = findViewById(R.id.save_note_button);
+        page_title = findViewById(R.id.page_title);
 
-        saveNoteButton.setOnClickListener((v)->saveNote());
+        // Receiving the Data
+        title = getIntent().getStringExtra("title");
+        content = getIntent().getStringExtra("content");
+        docId = getIntent().getStringExtra("docId");
+
+        titleEditText.setText(title);
+        contentEditText.setText(content);
+
+        if(docId!=null&&!docId.isEmpty()){
+            isEditMode = true;
+        }
+        if(isEditMode){
+            page_title.setText("Edit Your Note");
+        }
+
+        saveNoteButton.setOnClickListener((v) -> saveNote());
     }
 
     private void saveNote() {
         String noteTitle = titleEditText.getText().toString();
         String noteContent = contentEditText.getText().toString();
-
-        if (noteTitle == null || noteTitle.isEmpty()){
+        if (noteTitle == null || noteTitle.isEmpty()) {
             titleEditText.setError("Title is required");
             return;
         }
-        if (noteContent == null || noteTitle.isEmpty()){
+        if (noteContent == null || noteTitle.isEmpty()) {
             contentEditText.setError("Title is required");
             return;
         }
@@ -49,25 +84,63 @@ public class NoteDetailsActivity extends AppCompatActivity {
         note.setTimestamp(Timestamp.now());
 
         saveNoteToFirebase(note);
-
-
     }
 
-    void saveNoteToFirebase(Note note){
-        DocumentReference documentReference;
-        documentReference = Utility.getCollectionReferenceForNotes().document();
+    void saveNoteToFirebase(Note note) {
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        gsc = GoogleSignIn.getClient(this, gso);
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
-        documentReference.set(note).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Utility.showToast(NoteDetailsActivity.this,"Note Added Successfully");
-                    finish();
+        if (isEditMode){
+            DocumentReference documentReference;
+            documentReference = Utility.getCollectionReferenceForNotes().document(docId);
+            Map<String, Object> editNote = new HashMap<>();
+            editNote.put("userID", account.getId());
+            editNote.put("title", note.getTitle());
+            editNote.put("content", note.getContent());
+            editNote.put("timestamp",note.getTimestamp());
+            editNote.put("pinned", false);
+            documentReference.set(editNote).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Log.e("Edited",docId);
+                    }
+                    else {
+                        Log.e("UMM",documentReference.toString());
+                    }
                 }
-                else{
-                    Utility.showToast(NoteDetailsActivity.this,"Falied while adding note");
-                }
-            }
-        });
+            });
+            finish();
+
+        }
+        else{
+            Map<String, Object> addNote = new HashMap<>();
+            addNote.put("userID", account.getId());
+            addNote.put("title", note.getTitle());
+            addNote.put("content", note.getContent());
+            addNote.put("timestamp",note.getTimestamp());
+            addNote.put("pinned", false);
+
+            // Add a new document with a generated ID
+            db.collection("notes")
+                    .add(addNote)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("TAG", "Error adding document", e);
+                        }
+                    });
+            finish();
+        }
+
     }
 }
