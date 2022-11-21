@@ -1,15 +1,19 @@
-package com.example.pyop;
+package com.example.pyop.Notes;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pyop.SignInActivity;
+import com.example.pyop.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -26,7 +30,6 @@ public class NotesActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewPinned,recyclerViewOthers;
     ImageButton menuButton;
-
 
     FloatingActionButton addNoteButton;
 
@@ -58,6 +61,7 @@ public class NotesActivity extends AppCompatActivity {
         menuButton.setOnClickListener((v)->showMenu());
 
         setupRecyclerView(account);
+
 
     }
 
@@ -101,6 +105,20 @@ public class NotesActivity extends AppCompatActivity {
     }
 
     private void showMenu() {
-
+        PopupMenu popupMenu = new PopupMenu(NotesActivity.this,menuButton);
+        popupMenu.getMenu().add("Logout");
+        popupMenu.show();
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if(menuItem.getTitle()=="Logout"){
+                    gsc.signOut();
+                    startActivity(new Intent(NotesActivity.this, SignInActivity.class));
+                    finish();
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 }

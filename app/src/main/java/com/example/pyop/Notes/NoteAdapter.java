@@ -1,4 +1,4 @@
-package com.example.pyop;
+package com.example.pyop.Notes;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pyop.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
@@ -38,6 +39,14 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
             holder.pin_note_button.setEnabled(false);
             holder.pin_note_button.setVisibility(View.INVISIBLE);
         }
+        holder.pin_note_button.setOnClickListener((v) -> {
+            Intent intent = new Intent(context,NotesActivity.class);
+            intent.putExtra("title",note.title);
+            intent.putExtra("content",note.content);
+            String docId = this.getSnapshots().getSnapshot(position).getId();
+            intent.putExtra("docId",docId);
+            context.startActivity(intent);
+        });
         holder.itemView.setOnClickListener((v) -> {
             Intent intent = new Intent(context,NoteDetailsActivity.class);
             intent.putExtra("title",note.title);

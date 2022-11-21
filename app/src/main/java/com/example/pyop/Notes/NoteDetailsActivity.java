@@ -1,7 +1,8 @@
-package com.example.pyop;
+package com.example.pyop.Notes;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pyop.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -29,6 +31,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
     EditText titleEditText, contentEditText;
     ImageButton saveNoteButton;
     TextView page_title;
+    TextView delete_note_textView_btn;
 
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
@@ -47,6 +50,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
         contentEditText = findViewById(R.id.notes_content_text);
         saveNoteButton = findViewById(R.id.save_note_button);
         page_title = findViewById(R.id.page_title);
+        delete_note_textView_btn = findViewById(R.id.delete_note_text_view_btn);
 
         // Receiving the Data
         title = getIntent().getStringExtra("title");
@@ -61,9 +65,27 @@ public class NoteDetailsActivity extends AppCompatActivity {
         }
         if(isEditMode){
             page_title.setText("Edit Your Note");
+            delete_note_textView_btn.setVisibility(View.VISIBLE);
         }
 
+        delete_note_textView_btn.setOnClickListener((v) -> deleteNoteFromFirebase());
         saveNoteButton.setOnClickListener((v) -> saveNote());
+    }
+
+    private void deleteNoteFromFirebase() {
+            DocumentReference documentReference;
+            documentReference = Utility.getCollectionReferenceForNotes().document(docId);
+            documentReference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()){
+                        Utility.showToast(NoteDetailsActivity.this,"Note Deleted Successfully");
+                        finish();
+                    }else {
+                        Utility.showToast(NoteDetailsActivity.this,"Failed to Delete Note");
+                    }
+                }
+            });
     }
 
     private void saveNote() {
@@ -102,17 +124,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
             editNote.put("content", note.getContent());
             editNote.put("timestamp",note.getTimestamp());
             editNote.put("pinned", false);
-            documentReference.set(editNote).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
-                        Log.e("Edited",docId);
-                    }
-                    else {
-                        Log.e("UMM",documentReference.toString());
-                    }
-                }
-            });
+            documentReference.set(editNote);
             finish();
 
         }

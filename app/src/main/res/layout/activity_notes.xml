@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/design_default_color_surface"
-    android:backgroundTint="#A0CBD1"
+    android:backgroundTint="#03A9F4"
     android:padding="5dp"
     tools:context=".CalendarActivity">
 
@@ -33,7 +33,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:foregroundGravity="center"
         android:src="@drawable/ic_baseline_menu_24"
-        app:tint="@color/black" />
+        app:tint="@color/white" />
 
     <RelativeLayout
         android:id="@+id/pinned_bar_layout"

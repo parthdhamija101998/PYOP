@@ -12,14 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PYOP">
         <activity
-            android:name=".CreateAccountActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".NoteDetailsActivity"
+            android:name=".Notes.NoteDetailsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -33,7 +26,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".NotesActivity"
+            android:name=".Notes.NotesActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -54,7 +47,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".SignInActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -70,6 +63,14 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <service
+            android:name=".Firebase.MessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
