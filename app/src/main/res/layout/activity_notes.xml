@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/design_default_color_surface"
-    android:backgroundTint="#03A9F4"
+    android:backgroundTint="@color/primary"
     android:padding="5dp"
-    tools:context=".CalendarActivity">
+    tools:context=".Notes.NotesActivity">
 
 
     <TextView

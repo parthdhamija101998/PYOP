@@ -4,27 +4,42 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pyop.CalendarActivity;
+import com.example.pyop.ChatActivity;
 import com.example.pyop.SignInActivity;
 import com.example.pyop.R;
+import com.example.pyop.SplitActivity;
+import com.example.pyop.Utilities.Constants;
+import com.example.pyop.Utilities.PreferenceManager;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class NotesActivity extends AppCompatActivity {
 
     TextView name;
+    Button calendar,chat,split;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
 
@@ -35,22 +50,26 @@ public class NotesActivity extends AppCompatActivity {
 
     NoteAdapter otherNoteAdapter;
     NoteAdapter pinnedNoteAdapter;
+    PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
+        calendar = findViewById(R.id.btnHome);
+        chat = findViewById(R.id.btnChat);
+        split = findViewById(R.id.btnSplitwise);
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         gsc = GoogleSignIn.getClient(this,gso);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        preferenceManager = new PreferenceManager(getApplicationContext());
 
 
         name = findViewById(R.id.name);
-        String Name = account.getDisplayName().split(" ")[0];
-        name.setText("Hello " + Name);
+        name.setText("Hello " + preferenceManager.getString(Constants.KEY_NAME));
 
         addNoteButton = findViewById(R.id.addNoteButton);
         recyclerViewPinned = findViewById(R.id.recyclerViewPinned);
@@ -61,6 +80,29 @@ public class NotesActivity extends AppCompatActivity {
         menuButton.setOnClickListener((v)->showMenu());
 
         setupRecyclerView(account);
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(new Intent(getApplicationContext(), ChatActivity.class));
+            }
+        });
+
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(new Intent(getApplicationContext(), CalendarActivity.class));
+            }
+        });
+
+        split.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(new Intent(getApplicationContext(), SplitActivity.class));
+            }
+        });
 
 
     }
@@ -112,7 +154,22 @@ public class NotesActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if(menuItem.getTitle()=="Logout"){
+                    FirebaseFirestore database = FirebaseFirestore.getInstance();
+                    database.collection(Constants.KEY_COLLECTION_USERS)
+                            .whereEqualTo("userID",preferenceManager.getString(Constants.KEY_USER_ID))
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentReference documentReference = database.collection(Constants.KEY_COLLECTION_USERS)
+                                                .document(task.getResult().getDocuments().get(0).getId());
+                                        documentReference.update(Constants.KEY_FCM_TOKEN, FieldValue.delete());
+                                    }
+                                }
+                            });
                     gsc.signOut();
+                    preferenceManager.clear();
                     startActivity(new Intent(NotesActivity.this, SignInActivity.class));
                     finish();
                     return true;

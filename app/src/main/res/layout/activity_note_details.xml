@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="@color/design_default_color_surface"
-    android:backgroundTint="#03A9F4"
+    android:backgroundTint="@color/primary"
     tools:context=".Notes.NoteDetailsActivity">
 
     <RelativeLayout
@@ -40,7 +40,7 @@
         android:orientation="vertical"
         android:padding="5dp"
         android:layout_marginVertical="26dp"
-        android:backgroundTint="@color/cardview_light_background">
+        android:backgroundTint="@color/input_background">
 
         <EditText
             android:layout_width="match_parent"
@@ -72,8 +72,8 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:text="Delete Note"
-        android:textColor="#FF0000"
-        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textSize="25sp"
         android:visibility="gone" />
 
 

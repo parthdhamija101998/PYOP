@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pyop.Notes.NotesActivity;
@@ -17,6 +18,12 @@ import com.example.pyop.Utilities.PreferenceManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class CalendarActivity extends AppCompatActivity {
 
@@ -48,7 +55,7 @@ public class CalendarActivity extends AppCompatActivity {
                 .build();
         gsc = GoogleSignIn.getClient(this,gso);
 
-        name.setText("Hello" + preferenceManager.getString(Constants.KEY_NAME));
+        name.setText("Hello " + preferenceManager.getString(Constants.KEY_NAME));
 
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +91,22 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if(menuItem.getTitle()=="Logout"){
+                    FirebaseFirestore database = FirebaseFirestore.getInstance();
+                    database.collection(Constants.KEY_COLLECTION_USERS)
+                            .whereEqualTo("userID",preferenceManager.getString(Constants.KEY_USER_ID))
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentReference documentReference = database.collection(Constants.KEY_COLLECTION_USERS)
+                                                .document(task.getResult().getDocuments().get(0).getId());
+                                        documentReference.update(Constants.KEY_FCM_TOKEN, FieldValue.delete());
+                                    }
+                                }
+                            });
                     gsc.signOut();
+                    preferenceManager.clear();
                     startActivity(new Intent(CalendarActivity.this, SignInActivity.class));
                     finish();
                     return true;
