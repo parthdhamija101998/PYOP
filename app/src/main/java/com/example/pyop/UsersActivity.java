@@ -37,6 +37,7 @@ public class UsersActivity extends AppCompatActivity {
     }
 
     private void setListeners(){
+        binding.imageBack.setOnClickListener(v-> onBackPressed());
     }
 
     private void getUsers() {

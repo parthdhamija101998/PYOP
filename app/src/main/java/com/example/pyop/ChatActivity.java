@@ -65,6 +65,7 @@ public class ChatActivity extends AppCompatActivity {
 
         getToken();
 
+
         newChat.setOnClickListener(v -> {
             startActivity(new Intent(getApplicationContext(),UsersActivity.class));
         });
