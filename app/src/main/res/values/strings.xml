@@ -10,4 +10,6 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="plan_your_own_party">Plan Your Own Party</string>
+    <string name="online">Online</string>
+    <string name="type_a_message">Type a Message</string>
 </resources>

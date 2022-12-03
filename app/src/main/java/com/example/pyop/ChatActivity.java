@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pyop.Notes.NotesActivity;
@@ -42,7 +41,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ChatActivity extends AppCompatActivity implements ConversationListener {
+public class ChatActivity extends BaseActivity implements ConversationListener {
 
     TextView name;
     Button notes, calendar, split;
@@ -122,6 +121,7 @@ public class ChatActivity extends AppCompatActivity implements ConversationListe
     }
 
     private void updateToken(String token) {
+        preferenceManager.putString(Constants.KEY_FCM_TOKEN,token);
         database.collection(Constants.KEY_COLLECTION_USERS)
                 .whereEqualTo("userID", preferenceManager.getString(Constants.KEY_USER_ID))
                 .get()
