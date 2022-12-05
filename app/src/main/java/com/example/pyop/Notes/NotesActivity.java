@@ -2,7 +2,6 @@ package com.example.pyop.Notes;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pyop.CalendarActivity;
 import com.example.pyop.ChatActivity;
-import com.example.pyop.SignInActivity;
 import com.example.pyop.R;
+import com.example.pyop.SignInActivity;
 import com.example.pyop.SplitActivity;
 import com.example.pyop.Utilities.Constants;
 import com.example.pyop.Utilities.PreferenceManager;
@@ -113,7 +112,6 @@ public class NotesActivity extends AppCompatActivity {
         Query pinnedQuery = Utility.getCollectionReferenceForNotes().whereEqualTo("userID",accountReceived.getId()).whereEqualTo("pinned",true);
         FirestoreRecyclerOptions<Note> otherOptions = new FirestoreRecyclerOptions.Builder<Note>()
                 .setQuery(otherQuery,Note.class).build();
-        Log.e("Notes",otherOptions.getSnapshots().toString());
         FirestoreRecyclerOptions<Note> pinnedOptions = new FirestoreRecyclerOptions.Builder<Note>()
                 .setQuery(pinnedQuery,Note.class).build();
         recyclerViewOthers.setLayoutManager(new LinearLayoutManager(this));

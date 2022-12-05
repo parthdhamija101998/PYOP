@@ -33,7 +33,44 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:foregroundGravity="center"
         android:src="@drawable/ic_baseline_menu_24"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/background_content"
+        android:layout_below="@+id/name"
+        android:layout_above="@id/navigation"
+        android:layout_marginTop="@dimen/_16sdp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/calendarEventRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layout_constraintBottom_toTopOf="@id/newEvent"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:padding="@dimen/_20sdp"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </FrameLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/newEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/navigation"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="29dp"
+        android:backgroundTint="@color/white"
+        android:paddingBottom="34dp"
+        android:src="@drawable/ic_baseline_add_24"
+        android:tint="@color/primary"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
     <LinearLayout

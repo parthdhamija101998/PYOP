@@ -96,7 +96,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
             return;
         }
         if (noteContent == null || noteTitle.isEmpty()) {
-            contentEditText.setError("Title is required");
+            contentEditText.setError("Content is required");
             return;
         }
 

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/design_default_color_surface"
+    android:backgroundTint="@color/primary"
+    android:padding="@dimen/_12sdp">
+
+
+    <RelativeLayout
+        android:id="@+id/title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/page_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Event"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_24ssp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/saveEventBtn"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_baseline_done_24"
+            app:tint="@color/white"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/delete_event_text_view_btn"
+        android:layout_below="@id/title_bar_layout"
+        android:layout_marginVertical="26dp"
+        android:layout_marginBottom="134dp"
+        android:minHeight="@dimen/_400sdp"
+        android:background="@drawable/background_content"
+        android:backgroundTint="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/_4ssp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/eventTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:hint="Title"
+            android:padding="12dp"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/eventDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:gravity="top"
+            android:hint="Description"
+            android:minLines="4"
+            android:padding="12dp"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_1sdp">
+
+            <TextView
+                android:id="@+id/startDateDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:layout_weight="1.5"
+                android:padding="12dp"
+                android:text="Select Start Date"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/eventStartDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_5ssp"
+                android:layout_weight="2"
+                android:backgroundTint="@color/primary_dark"
+                android:hint="Start Date"
+                android:onClick="showDatePickerDialog"
+                android:padding="@dimen/_10ssp"
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/_14ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_1sdp">
+
+            <TextView
+                android:id="@+id/endDateDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:layout_weight="1.5"
+                android:padding="12dp"
+                android:text="Select End Date"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/eventEndDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_5ssp"
+                android:layout_weight="2"
+                android:backgroundTint="@color/primary_dark"
+                android:hint="End Date"
+                android:onClick="showEndDatePickerDialog"
+                android:padding="@dimen/_10ssp"
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/_14ssp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/_1sdp">
+
+            <TextView
+                android:id="@+id/timeDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:layout_weight="1.5"
+                android:padding="12dp"
+                android:text="Select Event Time"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/eventTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_5ssp"
+                android:layout_weight="2"
+                android:backgroundTint="@color/primary_dark"
+                android:hint="Time"
+                android:onClick="showTimePickerDialog"
+                android:padding="@dimen/_10ssp"
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/_14ssp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/delete_event_text_view_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Delete Event"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/indexingDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+</RelativeLayout>

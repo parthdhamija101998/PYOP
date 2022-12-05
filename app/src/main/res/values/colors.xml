@@ -16,4 +16,5 @@
     <color name="error">#B00020</color>
     <color name="received_message">#090D16</color>
     <color name="online_green">#008000</color>
+    <color name="colorAccent">#4885ed</color>
 </resources>
