@@ -15,11 +15,11 @@ public class Utility {
         Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
     }
 
-    static CollectionReference getCollectionReferenceForNotes(){
+    public static CollectionReference getCollectionReferenceForNotes(){
         return FirebaseFirestore.getInstance().collection("notes");
     }
 
-    static String timestamptoString(Timestamp timestamp){
+    public static String timestamptoString(Timestamp timestamp){
         return new SimpleDateFormat("MM/dd/yyyy").format(timestamp.toDate());
     }
 
