@@ -57,7 +57,6 @@ public class CalendarAdapter extends FirestoreRecyclerAdapter<CalendarEvent, Cal
             intent.putExtra("eventStartDate",calendarEvent.getStartDate());
             intent.putExtra("eventEndDate",calendarEvent.getEndDate());
             intent.putExtra("eventTime",calendarEvent.getEventTime());
-            intent.putExtra("startDateIndex",calendarEvent.getStartDateIndex().toString());
             String docId = this.getSnapshots().getSnapshot(position).getId();
             intent.putExtra("docId",docId);
             context.startActivity(intent);
@@ -65,7 +64,7 @@ public class CalendarAdapter extends FirestoreRecyclerAdapter<CalendarEvent, Cal
     }
 
     class EventViewHolder extends RecyclerView.ViewHolder{
-        TextView eventDay, eventDate, eventMonth, eventTitle, eventDescription, eventTime;
+        TextView eventDay, eventDate, eventMonth, eventTitle, eventDescription, eventTime,indexingDate;
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,6 +74,7 @@ public class CalendarAdapter extends FirestoreRecyclerAdapter<CalendarEvent, Cal
             eventDate = itemView.findViewById(R.id.eventDate);
             eventMonth = itemView.findViewById(R.id.eventMonth);
             eventTime = itemView.findViewById(R.id.eventTime);
+            indexingDate = itemView.findViewById(R.id.indexingDate);
         }
     }
 }

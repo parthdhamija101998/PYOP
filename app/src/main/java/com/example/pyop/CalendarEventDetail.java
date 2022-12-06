@@ -49,7 +49,7 @@ public class CalendarEventDetail extends AppCompatActivity {
     boolean isEditMode = false;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    String eventTitle, eventDescription, docId, eventStartDate, eventEndDate, eventStartTime;
+    String eventTitle, eventDescription, docId, eventStartDate, eventEndDate, eventStartTime,startDateIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +71,7 @@ public class CalendarEventDetail extends AppCompatActivity {
         eventStartDate = getIntent().getStringExtra("eventStartDate");
         eventEndDate = getIntent().getStringExtra("eventEndDate");
         eventStartTime = getIntent().getStringExtra("eventTime");
+        startDateIndex = getIntent().getStringExtra("startDateIndex");
         docId = getIntent().getStringExtra("docId");
 
         if(docId!=null&&!docId.isEmpty()){
@@ -86,6 +87,7 @@ public class CalendarEventDetail extends AppCompatActivity {
         binding.startDateDisplay.setText(eventStartDate);
         binding.endDateDisplay.setText(eventEndDate);
         binding.timeDisplay.setText(eventStartTime);
+        binding.indexingDate.setText(startDateIndex);
 
     }
 
@@ -127,16 +129,17 @@ public class CalendarEventDetail extends AppCompatActivity {
         event.setEndDate(eventEndDate);
         event.setEventTime(eventTime);
 
+
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-            Date date = sdf.parse(indexingDate);
-            Timestamp myTimestamp = new Timestamp(date);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String date = eventStartDate.split(",")[1].trim();
+            Date parsedDate = sdf.parse(date);
+            Timestamp myTimestamp = new Timestamp(parsedDate);
             event.setStartDateIndex(myTimestamp);
         } catch (Exception e) {
             e.printStackTrace();
+            Log.d("Timestamp Error",e.toString());
         }
-
-
         saveEventToFirebase(event);
     }
 
@@ -185,7 +188,6 @@ public class CalendarEventDetail extends AppCompatActivity {
             addEvent.put("endDate", event.getEndDate());
             addEvent.put("eventTime", event.getEventTime());
             addEvent.put("startDateIndex", event.getStartDateIndex());
-
 
             // Add a new document with a generated ID
             db.collection("events")

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,7 +47,6 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
         });
         holder.pin_note_button.setOnClickListener(v -> {
             String docId = this.getSnapshots().getSnapshot(position).getId();
-            Toast.makeText(context,"Clicked Pin for " + docId,Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(context,NotesActivity.class);
             boolean pin = note.isPinned();
             if (pin)

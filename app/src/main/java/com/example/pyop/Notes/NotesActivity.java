@@ -78,13 +78,12 @@ public class NotesActivity extends AppCompatActivity {
         recyclerViewOthers = findViewById(R.id.recyclerViewOthers);
         menuButton = findViewById(R.id.menuButton);
 
-        docId = "1234";
+        docId = "true";
         docId = getIntent().getStringExtra("docId");
         pinIt = getIntent().getStringExtra("pinIt");
 
-        if (docId != null && !docId.isEmpty() && docId != "1234") {
+        if (docId != null && !docId.isEmpty() && docId != "true") {
             updatePin(pinIt,docId);
-            Log.d("Pin IT",pinIt);
         }
 
         addNoteButton.setOnClickListener((v) -> startActivity(new Intent(NotesActivity.this, NoteDetailsActivity.class)));
